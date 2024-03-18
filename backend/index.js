@@ -1,4 +1,3 @@
-import path from "path";
 const express=require('express')
 const app=express()
 const mongoose=require('mongoose')
@@ -24,9 +23,6 @@ const connectDB=async()=>{
     }
 }
 
-
-//deployment
-const __dirname = path.resolve();
 
 
 //middlewares
@@ -56,14 +52,6 @@ app.post("/api/upload",upload.single("file"),(req,res)=>{
     // console.log(req.body)
     res.status(200).json("Image has been uploaded successfully!")
 })
-
-
-//deployment
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
 
 
 app.listen(process.env.PORT,()=>{
